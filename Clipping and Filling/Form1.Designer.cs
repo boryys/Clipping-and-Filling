@@ -30,6 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.drawPol = new System.Windows.Forms.Button();
             this.p2line = new System.Windows.Forms.Label();
             this.p1line = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,7 +48,7 @@
             this.clipRB = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.drawPol = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -71,6 +72,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.drawPol);
             this.panel1.Controls.Add(this.p2line);
             this.panel1.Controls.Add(this.p1line);
@@ -93,6 +95,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(148, 534);
             this.panel1.TabIndex = 0;
+            // 
+            // drawPol
+            // 
+            this.drawPol.Location = new System.Drawing.Point(35, 336);
+            this.drawPol.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.drawPol.Name = "drawPol";
+            this.drawPol.Size = new System.Drawing.Size(75, 23);
+            this.drawPol.TabIndex = 16;
+            this.drawPol.Text = "Draw";
+            this.drawPol.UseVisualStyleBackColor = true;
+            this.drawPol.Click += new System.EventHandler(this.drawPol_Click);
             // 
             // p2line
             // 
@@ -266,16 +279,17 @@
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
-            // drawPol
+            // radioButton1
             // 
-            this.drawPol.Location = new System.Drawing.Point(35, 336);
-            this.drawPol.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.drawPol.Name = "drawPol";
-            this.drawPol.Size = new System.Drawing.Size(75, 23);
-            this.drawPol.TabIndex = 16;
-            this.drawPol.Text = "Draw";
-            this.drawPol.UseVisualStyleBackColor = true;
-            this.drawPol.Click += new System.EventHandler(this.drawPol_Click);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(20, 387);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(57, 17);
+            this.radioButton1.TabIndex = 17;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "floodfill";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Form1
             // 
@@ -319,6 +333,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button drawRec;
         private System.Windows.Forms.Button drawPol;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

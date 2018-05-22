@@ -28,6 +28,32 @@ namespace Clipping_and_Filling
             grp = Graphics.FromImage(bmp);
         }
 
+        void floodFill(int x, int y, Color newC, Color clicked, int t)
+        {
+            Color old = bmp.GetPixel(x, y);
+            
+            Stack<Point> pixels = new Stack<Point>();
+            pixels.Push(new Point(x,y));
+
+            while (pixels.Count > 0)
+            {
+                Point a = pixels.Pop();
+                if (a.X < bmp.Width && a.X > 0 && a.Y < bmp.Height && a.Y > 0)//make sure we stay within bounds
+                {
+                    double euc = Math.Sqrt((bmp.GetPixel(a.X, a.Y).R - clicked.R) * (bmp.GetPixel(a.X, a.Y).R - clicked.R) + (bmp.GetPixel(a.X, a.Y).G - bmp.GetPixel(a.X, a.Y).G) * (bmp.GetPixel(a.X, a.Y).G - clicked.G) + (bmp.GetPixel(a.X, a.Y).B - clicked.B) * (bmp.GetPixel(a.X, a.Y).B - clicked.B));
+                    if (euc <= t)
+                    {
+                        bmp.SetPixel(a.X, a.Y, newC);
+                        //pictureBox1.Refresh();
+                        pixels.Push(new Point(a.X - 1, a.Y));
+                        pixels.Push(new Point(a.X + 1, a.Y));
+                        pixels.Push(new Point(a.X, a.Y - 1));
+                        pixels.Push(new Point(a.X, a.Y + 1));
+                    }
+                }
+            }
+        }
+
         private void LiangBarsky(PointF p1, PointF p2, int xmin, int xmax, int ymin, int ymax)
         {
             float dx, dy, t1, t2, P1, P2, P3, P4, q1, q2, q3, q4;
@@ -115,7 +141,7 @@ namespace Clipping_and_Filling
         {
             public int ymin { get; set; }
             public int ymax { get; set; }
-            public int x { get; set; }
+            public float x { get; set; }
             public float? m { get; set; }
 
             public Edge(int y1, int y2, int x1, int x2)
@@ -135,7 +161,8 @@ namespace Clipping_and_Filling
 
                // if (x1 < x2) x = x1;
                // else x = x2;
-                if (x2 - x1 == 0) m = null;
+            
+                if (y2 - y1 == 0) m = null;
                 else m = (float)(x2 - x1) / (y2 - y1);
             }
         }
@@ -157,9 +184,9 @@ namespace Clipping_and_Filling
                 }
             }
 
-            ET.OrderBy(e => e.ymin);
+            ET.OrderBy(e => e.ymin).ToList();
 
-            int scanLine = ET.First().ymin;
+            int scanLine = ET.Min(e => e.ymin);
             List<Edge> AET = new List<Edge>();
 
             while (AET.Count != 0 || ET.Count != 0)
@@ -174,11 +201,11 @@ namespace Clipping_and_Filling
                 }
                 ET.RemoveAll(e => e.ymin == scanLine);
 
-                AET.OrderBy(e => e.x);//sort AET by x value
+                AET.OrderBy(e => e.x).ToList();//sort AET by x value
 
                 for (int i = 0; i < AET.Count - 1; i += 2)//fill pixels between pairs of intersections
                 {
-                    for (int j = (int)AET.ElementAt(i).x; j <= (int)AET.ElementAt(i + 1).x; j++)
+                    for (int j = (int)Math.Round(AET.ElementAt(i).x); j <= (int)Math.Round(AET.ElementAt(i + 1).x); j++)
                     {
                         bmp.SetPixel(j, scanLine, Color.Red);
                     }
@@ -191,7 +218,7 @@ namespace Clipping_and_Filling
 
                 foreach (Edge e in AET)
                 {
-                    e.x = (int)Math.Round((double)((e.x) + (e.m)));
+                    e.x = ((e.x) + (e.m)).Value;
                 }
             }
         }
@@ -309,6 +336,18 @@ namespace Clipping_and_Filling
             }
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButton1.Checked)
+            {
+                bmp = new Bitmap("C:/Users/UlaBorys/Pictures/colour_wheel.png");
+            }
+            else
+            {
+                bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            }
+        }
+
         private void drawRec_Click(object sender, EventArgs e)
         {
             if(!rec4.IsEmpty)
@@ -403,7 +442,11 @@ namespace Clipping_and_Filling
                 }
                 else
                 {
-                    polygon.Add(new Point(e.X, e.Y));
+                    if(fillRB.Checked) polygon.Add(new Point(e.X, e.Y));
+                    else
+                    {
+                        floodFill(e.X, e.Y, Color.Black, bmp.GetPixel(e.X, e.Y), 1);
+                    }
                 }
             }
         }
@@ -422,7 +465,7 @@ namespace Clipping_and_Filling
             else
             {
                 fillPolygon(polygon);
-                polygon = new List<Point>();
+                //polygon = new List<Point>();
             }
         }
 
