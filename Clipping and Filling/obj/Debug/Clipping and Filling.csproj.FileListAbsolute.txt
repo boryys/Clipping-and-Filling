@@ -1,0 +1,9 @@
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\bin\Debug\Clipping and Filling.exe.config
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\bin\Debug\Clipping and Filling.exe
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\bin\Debug\Clipping and Filling.pdb
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping and Filling.csprojResolveAssemblyReference.cache
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping_and_Filling.Form1.resources
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping_and_Filling.Properties.Resources.resources
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping and Filling.csproj.GenerateResource.Cache
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping and Filling.exe
+C:\Users\UlaBorys\Desktop\Grafika\Clipping and Filling\Clipping and Filling\obj\Debug\Clipping and Filling.pdb
